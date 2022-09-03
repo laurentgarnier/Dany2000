@@ -1,0 +1,39 @@
+﻿<Window x:Class="Dany2000.Views.DisplayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:pdfiumViewer="clr-namespace:PdfiumViewer;assembly=PdfiumViewer"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:local="clr-namespace:Dany2000.Views"
+        xmlns:dc="clr-namespace:Dany2000.ViewModels"
+        xmlns:utilities="clr-namespace:Dany2000.Models"
+        mc:Ignorable="d"
+        Title="Dany2000"
+        d:DataContext="{d:DesignInstance dc:DisplayViewModel}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <prism:InvokeCommandAction Command="{Binding WindowClosingCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.12*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="VisuDuree" Grid.Row ="0" Grid.Column="0" Text="{Binding MusicPosition}"  HorizontalAlignment="Stretch" TextAlignment="Center" 
+                   Background="{Binding BlinkColor}"/>
+
+        <pdfiumViewer:PdfRenderer x:Name="Renderer" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
+                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                  PagesDisplayMode="BookMode" 
+                                  utilities:PdfRendererUtility.PdfFile="{Binding PdfFile}"
+                                  Zoom="1"/>
+    </Grid>
+</Window>

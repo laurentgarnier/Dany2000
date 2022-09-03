@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MvvmDialogs" Version="9.0.1" />
+    <PackageReference Include="PdfiumViewer.WPF" Version="1.0.6" />
+    <PackageReference Include="Prism.Unity" Version="8.1.97" />
+    <PackageReference Include="WpfScreenHelper" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dany2000.Api\Dany2000.Api.csproj" />
+    <ProjectReference Include="..\Dany2000.Business\Dany2000.Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="pdfium.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

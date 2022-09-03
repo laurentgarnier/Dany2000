@@ -1,0 +1,88 @@
+﻿<Window x:Class="Dany2000.Views.ManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:local="clr-namespace:Dany2000.Views"
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        md:DialogServiceViews.IsRegistered="True"
+        xmlns:utilities="clr-namespace:Dany2000.Models"
+        xmlns:dc="clr-namespace:Dany2000.ViewModels" xmlns:pdfiumViewer="clr-namespace:PdfiumViewer;assembly=PdfiumViewer"
+        mc:Ignorable="d"
+        Title="Dany2000"
+        d:DataContext="{d:DesignInstance dc:ManagementViewModel}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <prism:InvokeCommandAction Command="{Binding WindowClosingCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Partie gauche de l'écran (liste des chansons disponibles et filtre) -->
+        <DockPanel Name="dpSongsList" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid DockPanel.Dock="Top" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Filtre" HorizontalAlignment="Left"/>
+                <TextBox Grid.Column="1" Name="txtFilter"  Margin="5" Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
+                <Button Grid.Column="2" Content="..." Command="{Binding OpenRootDirectoryCommand}" HorizontalAlignment="Stretch"/>
+            </Grid>
+           
+            <Label DockPanel.Dock="Top" Content="Chansons" HorizontalAlignment="Stretch"/>
+            <ListView DockPanel.Dock="Top" Name="lvSongs" Margin="5"  ItemsSource="{Binding AvailableSongs}" SelectedValue="{Binding SelectedSongInAvailableSongs}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <prism:InvokeCommandAction Command="{Binding SongListDoubleClick}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListView>
+        </DockPanel>
+
+
+        <!-- Partie centrale de l'écran (playlist, boutons) -->
+        <DockPanel Name="dpPlaylistManagement" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Label DockPanel.Dock="Top" Content="En cours d'écoute" HorizontalAlignment="Stretch"/>
+            <!--</DockPanel>-->
+            <Grid DockPanel.Dock="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.05*"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="0.1*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{Binding SongInProgress}" TextAlignment="Center" Grid.Row="0" HorizontalAlignment="Stretch"/>
+                <pdfiumViewer:PdfRenderer x:Name="Renderer" Grid.Row="1"
+                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                  PagesDisplayMode="BookMode" 
+                                  utilities:PdfRendererUtility.PdfFile="{Binding PdfFile}"
+                                  Zoom="1"/>
+                <ListView x:Name="lvPlaylist" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                          ItemsSource="{Binding PlaylistSongs}"
+                          SelectedIndex="{Binding PlaylistSelectedIndex}"
+                          DisplayMemberPath="Name"
+                          SelectionMode="Single"/>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Play" Command="{Binding PlaySongCommand}" Grid.Column="0"/>
+                    <Button Content="Supp." Command="{Binding RemoveSongCommand}" Grid.Column="1"/>
+                    <Button Content="Stop" Command="{Binding StopSongCommand}" Grid.Column="2"/>
+                    <Button Content="Next" Command="{Binding NextSongCommand}" Grid.Column="3"/>
+                </Grid>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>
