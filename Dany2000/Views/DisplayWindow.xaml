@@ -30,9 +30,9 @@
         <TextBlock x:Name="VisuDuree" Grid.Row ="0" Grid.Column="0" Text="{Binding MusicPosition}"  HorizontalAlignment="Stretch" TextAlignment="Center" 
                    Background="{Binding BlinkColor}"/>
 
+        <!--utilities:PdfRendererUtility.PdfDisplayMode="{Binding DisplayMode}"-->
         <pdfiumViewer:PdfRenderer x:Name="Renderer" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                  PagesDisplayMode="BookMode" 
                                   utilities:PdfRendererUtility.PdfFile="{Binding PdfFile}"
                                   Zoom="1"/>
     </Grid>

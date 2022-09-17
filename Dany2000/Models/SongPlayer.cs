@@ -17,7 +17,13 @@ namespace Dany2000.Models
 
         private DispatcherTimer _timer = new DispatcherTimer();
 
-        public TimeSpan SongDuration => _player.NaturalDuration.TimeSpan;
+        public TimeSpan SongDuration
+        {
+            get
+            {
+                return _player.NaturalDuration.HasTimeSpan? _player.NaturalDuration.TimeSpan : TimeSpan.MinValue;
+            }
+        }
 
         public SongPlayer()
         {
@@ -26,12 +32,22 @@ namespace Dany2000.Models
 
             _timer.Interval = TimeSpan.FromMilliseconds(1000);
             _timer.Tick += new EventHandler(DisplayEllapsedTime);
-         
+
         }
 
         void DisplayEllapsedTime(object sender, EventArgs e)
         {
-            var tempsRestant = _player.NaturalDuration.TimeSpan - _player.Position;
+            TimeSpan tempsRestant = TimeSpan.MinValue;
+            try
+            {
+                if (_player.NaturalDuration.HasTimeSpan)
+                    tempsRestant = _player.NaturalDuration.TimeSpan - _player.Position;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+
             EllapsedTimeChange?.Invoke(this, tempsRestant);
         }
 

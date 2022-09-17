@@ -20,7 +20,7 @@
     </i:Interaction.Triggers>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="0.12*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
@@ -56,13 +56,13 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.05*"/>
                     <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="0"/>
                     <RowDefinition Height="0.1*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="{Binding SongInProgress}" TextAlignment="Center" Grid.Row="0" HorizontalAlignment="Stretch"/>
+                <!--PagesDisplayMode="BookMode"-->
                 <pdfiumViewer:PdfRenderer x:Name="Renderer" Grid.Row="1"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                  PagesDisplayMode="BookMode" 
                                   utilities:PdfRendererUtility.PdfFile="{Binding PdfFile}"
                                   Zoom="1"/>
                 <ListView x:Name="lvPlaylist" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"

@@ -113,5 +113,9 @@ namespace Dany2000.ViewModels
             PdfFile = song.LyricsFilePath;
             _playlistManager.Remove(song);
         }
+
+        private PdfiumViewer.Enums.PdfViewerPagesDisplayMode displayMode;
+
+        public PdfiumViewer.Enums.PdfViewerPagesDisplayMode DisplayMode { get => displayMode; set => SetProperty(ref displayMode, value); }
     }
 }
