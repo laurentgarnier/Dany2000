@@ -6,10 +6,10 @@ using System.Windows;
 
 namespace Dany2000.Models
 {
-    public static class PdfRendererUtility
+    public static class PdfRendererHelper
     {
         public static readonly DependencyProperty PdfFileProperty =
-            DependencyProperty.RegisterAttached("PdfFile", typeof(string), typeof(PdfRendererUtility), new UIPropertyMetadata(null, PdfFilePropertyChanged));
+            DependencyProperty.RegisterAttached("PdfFile", typeof(string), typeof(PdfRendererHelper), new UIPropertyMetadata(null, PdfFilePropertyChanged));
 
         public static PdfDocument GetPdfFile(DependencyObject obj)
         {

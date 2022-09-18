@@ -63,7 +63,7 @@
                 <!--PagesDisplayMode="BookMode"-->
                 <pdfiumViewer:PdfRenderer x:Name="Renderer" Grid.Row="1"
                                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                  utilities:PdfRendererUtility.PdfFile="{Binding PdfFile}"
+                                  utilities:PdfRendererHelper.PdfFile="{Binding PdfFile}"
                                   Zoom="1"/>
                 <ListView x:Name="lvPlaylist" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                           ItemsSource="{Binding PlaylistSongs}"

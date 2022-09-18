@@ -64,7 +64,7 @@ namespace Dany2000.ViewModels
             _eventAggregator.GetEvent<WindowClosingEvent>().Subscribe(() => Process.GetCurrentProcess().Kill());
 
             SetCommands();
-            displayWindow.Show();
+           // displayWindow.Show();
         }
 
         private void FillAvailableSongs()
